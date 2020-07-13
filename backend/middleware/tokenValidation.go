@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"fmt"
+	"log"
 	"login_page_gerin/utils/token"
 	"net/http"
 )
@@ -16,7 +16,7 @@ func TokenValidation(next http.Handler) http.Handler {
 		}
 
 		validity, userName, _ := token.VerifyToken(getCookies[0].Value)
-		fmt.Println(userName + " accessing " + r.RequestURI)
+		log.Println(userName + " accessing " + r.RequestURI)
 		if validity == true && userName == getCookies[1].Value {
 			next.ServeHTTP(w, r)
 		} else {
